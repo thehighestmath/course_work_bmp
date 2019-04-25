@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Reference</class>
+ <widget class="QDialog" name="Reference">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1431</width>
+    <height>851</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>1391</width>
+     <height>831</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt; font-weight:600; color:#664fbe;&quot;&gt;Справка&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Для работы с изображением кликнете &lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Открыть файл &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;и выберите путь к файлу формата &lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;*.bmp&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;. Обратите внимание, что программа обрабатывает изображения только формата &lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;*.bmp&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Для обработки изображения существуют следующие инструменты:&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Прямоугольник: &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;выберите толщину линий и заливку (по желанию),кликнете на кнопку &amp;quot;Нарисовать прямоугольник&lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;, выберите цвет линий (и заливки), затем выделите область изображения, на месте которой хотите нарисовать прямоугольник.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Отражение заданной области: &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;выберите тип отражения (относительно веритикальной/горизонтальной оси), кликните на кнопку &amp;quot;Отразить&amp;quot;, затем выделите область изображения, которую хотите отразить.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Пентаграмма: &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;выберите толшину линий и окружности, тип рисования (либо через квадрат, либо через центр окружности и ее радиус), затем выберите цвета линий и окружности, следом выделите область изображения, на месте которой хотите нарисовать пентаграмму.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Коллаж: &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;выберите количество повторений по оси Ох и по оси Оу. Далее нажмите на кнопку &amp;quot;Коллаж&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Обращаем Ваше внимание, что количество нажаний на кнопку оограничено до двух!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;После работы с изображением вы можете сохранить его, кликнув на кнопку &lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&amp;quot;Сохранить файл&amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;. После этого в появившемся окне выберите путь для сохранения файла.&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Также вы можете посмотреть подробную информацию об изображении во вкладке &lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&amp;quot;Информация об изображении&amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Автор программы: Крыжановский Кирилл Евгеньевич&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
