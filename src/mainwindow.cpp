@@ -293,3 +293,20 @@ void MainWindow::on_rotate_clicked()
     picture->update(img->get_pixmap());
     ui->gridLayout->addWidget(picture);
 }
+
+void MainWindow::on_save_parts_clicked()
+{
+    int n, m;
+    n = 3; // OY
+    m = 4; // OX
+    img->division(n, m);
+    int k = 0;
+
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            img->save_parts("/home/therealyou/course_work_bmp/part", n, m, i, j, k);
+            k++;
+        }
+    }
+
+}

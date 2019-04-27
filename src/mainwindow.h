@@ -65,6 +65,8 @@ private slots:
 
     void on_rotate_clicked();
 
+    void on_save_parts_clicked();
+
 private:
     Ui::MainWindow *ui;
     Image* img;

@@ -477,4 +477,101 @@ int Image::rotate(int angle){
 
 
 
+int Image::division(int n, int m){
+    // m =~ x
+    // n =~ y
+
+    int mx = bit_in_head.biWidth;
+    int my = bit_in_head.biHeight;
+    int small_x = mx / m;
+    int small_y = my / n;
+    new_rgb = new rgb_tripple** [n * m];
+    int g = 0;
+    for (int q = 0; q < n; q++){
+        for (int k = 0; k < m; k++){
+            rgb_tripple** temp = new rgb_tripple* [small_y];
+            for (int t = 0; t < small_y; t++){
+                temp[t] = new rgb_tripple [small_x];
+            }
+            for (int i = 0; i < small_y; i++){
+                for (int j = 0; j < small_x; j++){
+                    temp[i][j].red = rgb[i + q * small_y][j + k * small_x].red;
+                    temp[i][j].green = rgb[i + q * small_y][j + k * small_x].green;
+                    temp[i][j].blue = rgb[i + q * small_y][j + k * small_x].blue;
+                }
+            }
+            new_rgb[g] = temp;
+            g++;
+        }
+    }
+    return 0;
+}
+
+int Image::save_parts(QString name, int n, int m, int a, int b, int k){
+    const char *fname = (QString(name) + QString("_") + QString(char(a) + 49) +
+                         QString("_") + QString(char(b) + 49) + QString(".bmp")).toLocal8Bit().constData();
+    FILE *f = fopen(fname, "wb");
+    if(!f)
+        return -1;
+    bit_map_file_header temp_bh = bit_head;
+    temp_bh.bfSize /= (n * m);
+    bit_map_file_in_fo_header temp_bih = bit_in_head;
+    temp_bih.biHeight /= n;
+    temp_bih.biWidth /= m;
+    fwrite(&temp_bh, sizeof(temp_bh), 1, f);
+    fwrite(&temp_bih, sizeof(temp_bih), 1, f);
+    int mx = temp_bih.biWidth;
+    int my = temp_bih.biHeight;
+    size_t padding = 0;
+    if ((mx*3) % 4)
+        padding = 4 - (mx*3) % 4;
+    fseek(f, long(bit_head.bfOffBits), SEEK_SET);
+    for (int i = 0; i < my; i++){
+        int j;
+        for (j = 0; j < mx; j++){
+            fwrite(&new_rgb[k][i][j], sizeof(rgb_tripple), 1, f);
+        }
+        if (padding)
+            fwrite(&new_rgb[k][i][j], padding, 1, f);
+    }
+    fclose(f);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

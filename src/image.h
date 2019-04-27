@@ -52,6 +52,7 @@ public:
     bit_map_file_header bit_head;
     bit_map_file_in_fo_header bit_in_head;
     rgb_tripple **rgb;
+    rgb_tripple ***new_rgb;
     QImage *image;
     int load_bmp(const char *);
     int save_bmp(const char *);
@@ -64,6 +65,8 @@ public:
 //    int flood(int x, int y, int x0, int y0, int temp);
     int flood(int y, int x, int *x_t, int *y_t, unsigned char new_red, unsigned char new_green, unsigned char new_blue);
     int repaint();
+    int division(int n, int m);
+    int save_parts(QString, int, int, int, int, int);
     int rotate(int angle);
 };
 
