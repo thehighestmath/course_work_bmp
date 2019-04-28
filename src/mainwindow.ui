@@ -19,7 +19,7 @@
      <rect>
       <x>30</x>
       <y>30</y>
-      <width>1431</width>
+      <width>1181</width>
       <height>861</height>
      </rect>
     </property>
@@ -328,6 +328,32 @@
     </property>
     <property name="text">
      <string>save_parts</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="crop">
+    <property name="geometry">
+     <rect>
+      <x>1230</x>
+      <y>40</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Обрезать изображение</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="draw_around">
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>90</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Контур</string>
     </property>
    </widget>
   </widget>

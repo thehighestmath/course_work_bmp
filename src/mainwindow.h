@@ -22,6 +22,7 @@
 #define REFLECTION 2
 #define PENTAGRAMM_CIRCLE 3
 #define PENTAGRAMM_SQUARE 4
+#define CROP 5
 
 namespace Ui {
 class MainWindow;
@@ -66,6 +67,10 @@ private slots:
     void on_rotate_clicked();
 
     void on_save_parts_clicked();
+
+    void on_crop_clicked();
+
+    void on_draw_around_clicked();
 
 private:
     Ui::MainWindow *ui;

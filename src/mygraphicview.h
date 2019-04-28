@@ -15,6 +15,7 @@
 #define REFLECTION 2
 #define PENTAGRAMM_CIRCLE 3
 #define PENTAGRAMM_SQUARE 4
+#define CROP 5
 #define N 10000
 
 typedef struct Coords{

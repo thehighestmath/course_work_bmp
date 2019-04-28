@@ -48,7 +48,7 @@ void MyGraphicView::mouseMoveEvent(QMouseEvent* event){
     }
     int x1 = coords.x1;
     int y1 = coords.y1;
-    if (mouse_pressed && (button_pressed == RECT || button_pressed == REFLECTION)){
+    if (mouse_pressed && (button_pressed == RECT || button_pressed == REFLECTION || button_pressed == CROP)){
         group->addToGroup(scene->addLine(x1, y1, x, y1, penBlack));
         group->addToGroup(scene->addLine(x, y1, x, y, penBlack));
         group->addToGroup(scene->addLine(x, y, x1, y, penBlack));

@@ -54,6 +54,7 @@ public:
     rgb_tripple **rgb;
     rgb_tripple ***new_rgb;
     QImage *image;
+    QPixmap get_pixmap();
     int load_bmp(const char *);
     int save_bmp(const char *);
     int draw_rect(int x1, int y1, int x2, int y2, int thick, QColor color_lines, QColor color_flood, bool flag);
@@ -61,13 +62,15 @@ public:
     int reflection(int x1, int x2, int y1, int y2, bool flag);
     int draw_pentagramm(int x, int y, int r, QColor color_circle, QColor color_lines, int thick_circle, int thick_lines);
     int draw_line(int x1, int y1, int x2, int y2, QColor color_lines);
-    QPixmap get_pixmap();
-//    int flood(int x, int y, int x0, int y0, int temp);
     int flood(int y, int x, int *x_t, int *y_t, unsigned char new_red, unsigned char new_green, unsigned char new_blue);
     int repaint();
     int division(int n, int m);
     int save_parts(QString, int, int, int, int, int);
     int rotate(int angle);
+    int crop (int x1, int y1, int x2, int y2);
+    int draw_around(int x, int y, int thick, QColor color);
+    int compare(rgb_tripple rgb, QColor color);
+    int compare_circle(int i, int j, QColor color);
 };
 
 #endif // IMAGE_H

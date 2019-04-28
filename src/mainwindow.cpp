@@ -109,6 +109,17 @@ void MainWindow::selection(){
         picture->update(img->get_pixmap());
         button_pressed = 0;
     }
+    else if (button_pressed == CROP){
+        if (y2 < y1){
+            std::swap(y1, y2);
+        }
+        if (x1 < x2){
+            std::swap(x1, x2);
+        }
+        img->crop(x1, y1, x2, y2);
+        picture->update(img->get_pixmap());
+        button_pressed = 0;
+    }
 }
 
 void MainWindow::on_rect_clicked()
@@ -309,4 +320,17 @@ void MainWindow::on_save_parts_clicked()
         }
     }
 
+}
+
+void MainWindow::on_crop_clicked()
+{
+    button_pressed = CROP;
+    picture->button_pressed = CROP;
+}
+
+void MainWindow::on_draw_around_clicked()
+{
+    QColor color(255, 0, 0);
+    img->draw_around(img->bit_in_head.biHeight - picture->coords.y1, picture->coords.x1, 1, color);
+    picture->update(img->get_pixmap());
 }

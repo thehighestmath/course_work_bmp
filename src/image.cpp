@@ -345,7 +345,6 @@ int Image::flood(int y, int x, int *x_t, int *y_t, unsigned char new_red, unsign
     // Получим размеры изображения
     int imh = bit_in_head.biWidth;
     int imw = bit_in_head.biHeight;
-    fprintf(stderr, "%d\t%d\n", x , y);
     // Выделим памяти для складирования координат, которые еще предстоит залить
     unsigned int STACK_SIZE = static_cast<unsigned int>((imw + 2) * (imh + 2));
     int *floodfill_stackx = static_cast<int*>(malloc(STACK_SIZE * sizeof(int)));
@@ -495,9 +494,7 @@ int Image::division(int n, int m){
             }
             for (int i = 0; i < small_y; i++){
                 for (int j = 0; j < small_x; j++){
-                    temp[i][j].red = rgb[i + q * small_y][j + k * small_x].red;
-                    temp[i][j].green = rgb[i + q * small_y][j + k * small_x].green;
-                    temp[i][j].blue = rgb[i + q * small_y][j + k * small_x].blue;
+                    temp[i][j] = rgb[i + q * small_y][j + k * small_x];
                 }
             }
             new_rgb[g] = temp;
@@ -539,39 +536,163 @@ int Image::save_parts(QString name, int n, int m, int a, int b, int k){
 }
 
 
+int Image::crop(int x1, int y1, int x2, int y2){
+    std::swap(x2, x1);
+    int dy = y2 - y1 + 1;
+    int dx = x2 - x1 + 1;
+    rgb_tripple** temp = new rgb_tripple* [dy];
+    for (int i = 0; i < dy; i++){
+        temp[i] = new rgb_tripple [dx];
+    }
+    int i, j, k, t;
+    for (i = y1, k = 0; i <= y2; i++, k++){
+        for (j = x1, t = 0; j <= x2; j++, t++){
+            temp[k][t] = rgb[i][j];
+        }
+    }
+    bit_in_head.biHeight = dy;
+    bit_in_head.biWidth = dx;
+    delete[] rgb;
+    rgb = new rgb_tripple* [dy];
+    rgb = temp;
+    return 0;
+}
 
+int Image::draw_around(int x, int y, int thick, QColor color){
+    unsigned char new_red = static_cast<unsigned char>(color.red());
+    unsigned char new_green = static_cast<unsigned char>(color.green());
+    unsigned char new_blue = static_cast<unsigned char>(color.blue());
+    QColor current_color;
+    QColor start_color;
+    QColor stop_color;
+    current_color.setRed(rgb[y][x].red);
+    current_color.setGreen(rgb[y][x].green);
+    current_color.setBlue(rgb[y][x].blue);
+    start_color = current_color;
+    // Получим размеры изображения
+    int imh = bit_in_head.biWidth;
+    int imw = bit_in_head.biHeight;
 
+    while (compare(rgb[x][y], start_color)){
+        x++;
+    }
+    std::cout << rgb[x][y].red << std::endl;
+    std::cout << rgb[x][y].green << std::endl;
+    std::cout << rgb[x][y].blue << std::endl;
+    stop_color.setRed(rgb[x][y].red);
+    stop_color.setGreen(rgb[x][y].green);
+    stop_color.setBlue(rgb[x][y].blue);
+    x--;
+    std::cout << rgb[x][y].red << std::endl;
+    std::cout << rgb[x][y].green << std::endl;
+    std::cout << rgb[x][y].blue << std::endl;
 
+    // Выделим памяти для складирования координат, которые еще предстоит залить
+    unsigned int STACK_SIZE = static_cast<unsigned int>((imw + 2) * (imh + 2));
+    int *floodfill_stackx = static_cast<int*>(malloc(STACK_SIZE * sizeof(int)));
+    int *floodfill_stacky = static_cast<int*>(malloc(STACK_SIZE * sizeof(int)));
+    if (floodfill_stacky == nullptr || floodfill_stackx == nullptr)
+        return 0;
+    unsigned int stack_head = 0;
+    unsigned int stack_tail = 0;
+    floodfill_stackx[stack_head] = x;
+    floodfill_stacky[stack_head] = y;
+    stack_head++;
 
+    // Пока не кончится память или точки на изображении
 
+    while (stack_head < STACK_SIZE && stack_head > stack_tail) {
+        x=floodfill_stackx[stack_tail];
+        y=floodfill_stacky[stack_tail];
+        stack_tail++;
+        if (x >= 0 && y >= 0 && x < imw && y < imh) {
+            // Проверим точку справа, если она не залита, то зальем
+            if (x+1 == imw)
+                continue;
+            if (compare_circle(x + 1, y, stop_color)) {
+                floodfill_stackx[stack_head]=x+1;
+                floodfill_stacky[stack_head]=y;
+                rgb[x+1][y].red = new_red;
+                rgb[x+1][y].green = new_green;
+                rgb[x+1][y].blue = new_blue;
 
+                stack_head++;
+                }
+            // Проверим точку слева, если она не залита, то зальем
+            if (x-1 == -1)
+                continue;
+            if (compare_circle(x - 1, y, stop_color)) {
+                floodfill_stackx[stack_head]=x-1;
+                floodfill_stacky[stack_head]=y;
+                rgb[x-1][y].red = new_red;
+                rgb[x-1][y].green = new_green;
+                rgb[x-1][y].blue = new_blue;
+                stack_head++;
+                }
+            // Проверим точку снизу, если она не залита, то зальем
+            if (y-1 == -1)
+                continue;
+            if (compare_circle(x, y - 1, stop_color)) {
+                floodfill_stackx[stack_head]=x;
+                floodfill_stacky[stack_head]=y-1;
+                rgb[x][y-1].red = new_red;
+                rgb[x][y-1].green = new_green;
+                rgb[x][y-1].blue = new_blue;
+                stack_head++;
+                }
+            // Проверим точку сверху, если она не залита, то зальем
+            if (y+1 == imh)
+                continue;
+            if (compare_circle(x, y + 1, stop_color)) {
+                floodfill_stackx[stack_head]=x;
+                floodfill_stacky[stack_head]=y+1;
+                rgb[x][y+1].red = new_red;
+                rgb[x][y+1].green = new_green;
+                rgb[x][y+1].blue = new_blue;
 
+                stack_head++;
+                }
+            }
 
+    }
+    // Освободим память
+    free(floodfill_stacky);
+    free(floodfill_stackx);
 
+    return 0;
+}
 
+int Image::compare(rgb_tripple rgb, QColor color){
+    if (rgb.red == color.red() && rgb.green == color.green() && rgb.blue == color.blue()){
+        return 1;
+    }
+    return 0;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int Image::compare_circle(int i, int j, QColor color){
+    if (compare(rgb[i + 1][j], color)){
+        return 1;
+    }
+    if (compare(rgb[i - 1][j], color)){
+        return 1;
+    }
+    if (compare(rgb[i][j + 1], color)){
+        return 1;
+    }
+    if (compare(rgb[i][j - 1], color)){
+        return 1;
+    }
+    if (compare(rgb[i + 1][j + 1], color)){
+        return 1;
+    }
+    if (compare(rgb[i - 1][j - 1], color)){
+        return 1;
+    }
+    if (compare(rgb[i + 1][j - 1], color)){
+        return 1;
+    }
+    if (compare(rgb[i - 1][j + 1], color)){
+        return 1;
+    }
+    return 0;
+}
