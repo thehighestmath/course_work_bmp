@@ -62,6 +62,7 @@ void MyGraphicView::mouseMoveEvent(QMouseEvent* event){
             group->addToGroup(scene->addRect(x1, y1, a, a, penBlack));
             group->addToGroup(scene->addEllipse(x1, y1, a, a));
         }
+        /*
         else if (x <= x1 && y <= y1){
             group->addToGroup(scene->addRect(x1 - a, y1 - a, a, a, penBlack));
             group->addToGroup(scene->addEllipse(x1 - a, y1 - a, a, a));
@@ -74,6 +75,7 @@ void MyGraphicView::mouseMoveEvent(QMouseEvent* event){
             group->addToGroup(scene->addRect(x1 - a, y1, a, a, penBlack));
             group->addToGroup(scene->addEllipse(x1 - a, y1, a, a));
         }
+        */
         scene->addItem(group);
     }
     else if (mouse_pressed && button_pressed == PENTAGRAMM_CIRCLE){

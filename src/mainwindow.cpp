@@ -87,25 +87,23 @@ void MainWindow::selection(){
         button_pressed = 0;
     }
     else if (button_pressed == PENTAGRAMM_SQUARE){
-        if (y2 < y1){
-            std::swap(y1, y2);
-        }
-        if (x1 < x2){
-            std::swap(x1, x2);
-        }
+        if (y2 < y1)
+            y1 = y2;
+        if (x2 < x1)
+            x1 = x2;
         if (x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0 ||
                 x1 > (img->bit_in_head.biWidth - 1) || x2 > (img->bit_in_head.biWidth - 1) ||
                 y1 > (img->bit_in_head.biHeight - 1) || y2 > (img->bit_in_head.biHeight - 1)){
             QMessageBox::warning(this, "Ошибка", "Выход за пределы границ рисунка. Выберите корректную область");
             return;
         }
-        if (x1 == x2 && y1 == y2){
+        if (x1 == x2 || y1 == y2){
             QMessageBox::warning(this, "Ошибка", "Выберите корректную область");
             button_pressed = 0;
             return;
         }
         int max = (abs(x1 - x2) > abs(y1 - y2)) ? abs(x1 - x2) : abs(y1 - y2);
-        img->draw_pentagramm(x1 - max / 2, y1 + max / 2, max / 2, color_circle, color_lines, thick_circle, thick_lines);
+        img->draw_pentagramm(x1 + max / 2, y1 + max / 2, max / 2, color_circle, color_lines, thick_circle, thick_lines);
         picture->update(img->get_pixmap());
         button_pressed = 0;
     }
@@ -330,7 +328,7 @@ void MainWindow::on_crop_clicked()
 
 void MainWindow::on_draw_around_clicked()
 {
-    QColor color(255, 0, 0);
-    img->draw_around(img->bit_in_head.biHeight - picture->coords.y1, picture->coords.x1, 1, color);
-    picture->update(img->get_pixmap());
+//    QColor color(255, 0, 0);
+//    img->draw_around(img->bit_in_head.biHeight - picture->coords.y1, picture->coords.x1, 1, color);
+//    picture->update(img->get_pixmap());
 }

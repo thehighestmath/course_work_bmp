@@ -471,6 +471,16 @@ int Image::rotate(int angle){
             }
         }
     }
+    QColor color(255, 255, 255);
+    for (int x = 1; x < xx - 1; x++){
+        for (int y = 1; y < yy - 1; y++){
+            if (compare(rgb[y][x], color)){
+                rgb[y][x].red = (rgb[y + 1][x].red + rgb[y - 1][x].red + rgb[y][x + 1].red + rgb[y][x - 1].red) / 4;
+                rgb[y][x].green = (rgb[y + 1][x].green + rgb[y - 1][x].green + rgb[y][x + 1].green + rgb[y][x - 1].green) / 4;
+                rgb[y][x].blue = (rgb[y + 1][x].blue + rgb[y - 1][x].blue + rgb[y][x + 1].blue + rgb[y][x - 1].blue) / 4;
+            }
+        }
+    }
     return 0;
 }
 
@@ -537,7 +547,12 @@ int Image::save_parts(QString name, int n, int m, int a, int b, int k){
 
 
 int Image::crop(int x1, int y1, int x2, int y2){
+    y1 = bit_in_head.biHeight - y1;
+    y2 = bit_in_head.biHeight - y2;
     std::swap(x2, x1);
+    if (y2 < y1){
+        std::swap(y1, y2);
+    }
     int dy = y2 - y1 + 1;
     int dx = x2 - x1 + 1;
     rgb_tripple** temp = new rgb_tripple* [dy];
@@ -555,6 +570,7 @@ int Image::crop(int x1, int y1, int x2, int y2){
     delete[] rgb;
     rgb = new rgb_tripple* [dy];
     rgb = temp;
+    max = 0;
     return 0;
 }
 
